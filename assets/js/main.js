@@ -4,21 +4,25 @@
   // Mobilmeny
   var burger = document.getElementById('burger');
   var nav = document.getElementById('nav');
+  var header = document.querySelector('.header');
   function closeMenu() {
     nav.classList.remove('is-open');
+    header.classList.remove('menu-open');
     burger.setAttribute('aria-expanded', 'false');
+    burger.textContent = 'Meny';
     document.body.style.overflow = '';
   }
   burger.addEventListener('click', function () {
     var open = nav.classList.toggle('is-open');
+    header.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', String(open));
+    burger.textContent = open ? 'Stäng' : 'Meny';
     document.body.style.overflow = open ? 'hidden' : '';
   });
   nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
 
-  // Skugga på headern vid scroll
-  var header = document.querySelector('.header');
-  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 10); }
+  // Vitt sidhuvud när man scrollat förbi toppen av heron
+  function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 40); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
