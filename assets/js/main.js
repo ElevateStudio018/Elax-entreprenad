@@ -33,7 +33,7 @@
   });
 
   // Fade-in vid scroll
-  var targets = document.querySelectorAll('.section-head, .service, .fact, .segment, .step, .pillar, .about__grid > *, .contact__grid > *');
+  var targets = document.querySelectorAll('.section-head, .card, .step, .about__grid > *, .contact__grid > *');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
