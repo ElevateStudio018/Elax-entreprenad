@@ -33,7 +33,7 @@
   });
 
   // Fade-in vid scroll
-  var targets = document.querySelectorAll('.section-head, .card, .step, .about__grid > *, .contact__grid > *');
+  var targets = document.querySelectorAll('.section-head, .card, .project, .step, .about__grid > *, .form');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -50,16 +50,16 @@
     e.preventDefault();
     var valid = true;
     form.querySelectorAll('[required]').forEach(function (f) {
-      var ok = f.value.trim() !== '' && (f.type !== 'email' || /\S+@\S+\.\S+/.test(f.value));
+      var ok = f.type === 'checkbox' ? f.checked : f.value.trim() !== '' && (f.type !== 'email' || /\S+@\S+\.\S+/.test(f.value));
       f.classList.toggle('is-invalid', !ok);
       if (!ok) valid = false;
     });
-    if (!valid) { note.textContent = 'Fyll i namn, en giltig e-postadress och ett meddelande.'; return; }
+    if (!valid) { note.textContent = 'Fyll i alla fält markerade med * och godkänn kontakt.'; return; }
 
     var d = new FormData(form);
     var subject = 'Offertförfrågan – ' + d.get('typ');
     var body = 'Namn: ' + d.get('namn') + '\nTelefon: ' + d.get('telefon') + '\nE-post: ' + d.get('epost') +
-      '\nTyp av uppdrag: ' + d.get('typ') + '\n\n' + d.get('meddelande');
+      '\nOrt: ' + d.get('ort') + '\nTjänst: ' + d.get('typ') + '\n\n' + d.get('meddelande');
     window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     note.textContent = 'Tack! Ditt e-postprogram öppnas med förfrågan ifylld. Du kan också ringa 076-033 41 41.';
   });
